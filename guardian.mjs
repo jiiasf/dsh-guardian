@@ -30,7 +30,7 @@ const OPTIONS = {
 };
 
 function printHelp() {
-  console.log(`DSH 守护者 (guardian) v1.0
+  console.log(`DSH 守护者 (guardian) v1.0.1
 
 用法:
   node guardian.mjs <命令> [参数]
@@ -149,12 +149,12 @@ async function main() {
     return;
   }
   const { values, positionals } = parsed;
-  if (values.help || positionals.length === 0) {
-    printHelp();
+  if (values.version) {
+    console.log('1.0.1');
     return;
   }
-  if (values.version) {
-    console.log('1.0.0');
+  if (values.help || positionals.length === 0) {
+    printHelp();
     return;
   }
   if (values.config) process.env.DSH_GUARDIAN_CONFIG = path.resolve(values.config);

@@ -4,6 +4,7 @@
 
 - 添加 MIT License。
 - `package.json` 增加 `license` 字段。
+- 运行时与 CLI 版本号同步为 `1.0.1`。
 
 ## 1.0.0 — 2026-10-18
 
