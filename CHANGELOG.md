@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0 — 2026-10-18
+
+- 新增**每 12 小时自动保存健康版本**：条件满足时创建新基线并重置倒计时。
+- 新增自动清理：按 `autoSnapshotRetention`（默认 1）删除旧快照，只保留最新版本。
+- 新增配置：`autoSnapshotEnabled`、`autoSnapshotHours`、`autoSnapshotRetention`、`autoSnapshotMinHealthyMs`。
+- 手动快照、试用通过、回滚成功后会重置自动快照计时。
+- 离线自检增加自动快照与清理测试，共 13 项。
+- 运行时与 CLI 版本号同步为 `1.1.0`。
+
 ## 1.0.3 — 2026-10-18
 
 - 添加声明：该项目为 DeepSeekV4.1flash 模型生成，仅用于个人测试用途。

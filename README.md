@@ -37,6 +37,7 @@ config.example.json   配置模板（真正的 config.json 不入库）
 | 健康监控 | 每 4 秒检查 DSH 主进程、Agent 宿主进程、Web 端口和 HTTP 响应（401 也算正常） |
 | 变更检测 | 监控 profile 的 `package.json`、`cordis.patch.yml`、`cordis.yml`、`pnpm-lock.yaml`、`compatibility.json` 以及 `node_modules` 指纹 |
 | 良好基线 | 在 DSH 健康且配置稳定时创建快照，作为“安装这个插件之前的最新版本” |
+| 自动健康快照 | **默认每 12 小时**自动保存当前健康状态为新的良好版本，并删除旧快照（默认只保留最新 1 个） |
 | 试用期 | 新插件真正加载（DSH 重启）后观察 3 分钟；期间崩溃立即回滚 |
 | 启动失败回滚 | 重启后 120 秒内没有恢复健康，自动回滚并再次启动验证 |
 | 证据报告 | 记录进程/HTTP/端口、profile 差异、pnpm 日志、Windows 崩溃事件和事件时间线 |
@@ -54,6 +55,7 @@ config.example.json   配置模板（真正的 config.json 不入库）
    - 启动成功 → 进入 **试用期**（默认 180 秒）；
    - 试用期通过 → 当前状态被记录为新的良好版本；
    - 启动失败/崩溃/服务无响应 → 自动回滚到上一个良好版本并重启 DSH。
+5. 之后**每 12 小时**（默认开启）自动保存一次健康版本，并自动删除旧快照；详见[自动健康快照](#自动健康快照默认每-12-小时)。
 
 面板上的按钮：
 
@@ -105,6 +107,31 @@ powershell -ExecutionPolicy Bypass -File install-shortcuts.ps1 -Remove
 - 启动文件夹：`DSH 守护者（后台）.lnk`（`shell:startup`）
 - 程序目录：本仓库目录
 - 运行数据：`%USERPROFILE%\.dsh-guardian\`（可用 `DSH_GUARDIAN_HOME` 覆盖）
+
+---
+
+## 自动健康快照（默认每 12 小时）
+
+守护进程会定期把“当前健康的 DSH 状态”保存为新的良好基线，并自动清理旧快照，避免快照无限增长。
+
+同时满足以下条件才会执行：
+
+- `autoSnapshotEnabled=true`
+- DSH 健康（进程、Agent 宿主、端口、HTTP 全部正常）
+- profile 稳定，没有正在试用/待加载的插件
+- 距离上次良好版本达到 `autoSnapshotHours`（默认 12 小时）
+- 已连续健康至少 `autoSnapshotMinHealthyMs`（默认 60 秒）
+
+保存成功后：
+
+1. 新快照成为当前良好基线；
+2. 按 `autoSnapshotRetention`（默认 **1**）清理旧快照——**只保留最新一个**；
+3. 重新开始 12 小时倒计时；
+4. 在日志、状态和桌面通知中记录本次结果。
+
+手动快照、试用通过、回滚成功后，也会重新开始 12 小时倒计时，避免刚保存完又立刻再存一份。
+
+> 自动清理会删除 `%USERPROFILE%\.dsh-guardian\snapshots\` 下除保留数量外的**所有快照（包括手动快照）**，但不会删除会话、事件报告或你的项目文件。想保留更多历史版本，把 `autoSnapshotRetention` 调大；最小为 1。关闭自动快照：`node guardian.mjs config set autoSnapshotEnabled false`。
 
 ---
 
@@ -184,6 +211,10 @@ node guardian.mjs config set autoVerify true
 | `autoVerify` | `false` | 安装插件后自动安全重启验证 |
 | `autoRollback` | `true` | 允许自动回滚 |
 | `autoRestartStable` | `false` | 无插件变更时崩溃是否自动重启 |
+| `autoSnapshotEnabled` | `true` | 是否启用每 N 小时自动健康快照 |
+| `autoSnapshotHours` | `12` | 自动快照间隔（小时，最小 1 分钟） |
+| `autoSnapshotRetention` | `1` | 自动快照后保留的快照总数（默认只留最新） |
+| `autoSnapshotMinHealthyMs` | `60000` | 连续健康多久才允许自动快照 |
 | `notify` | `true` | 桌面通知 |
 | `observeOnly` | `false` | 只观察，不执行任何动作 |
 | `dryRun` | `false` | 演练模式 |
@@ -284,10 +315,10 @@ node test\fake-rollback-test.mjs
 
 ```powershell
 # 生成只包含已提交文件的 zip（dist/ 已被 .gitignore 忽略）
-git archive --format=zip --output=dist\dsh-guardian-1.0.3.zip HEAD
+git archive --format=zip --output=dist\dsh-guardian-1.1.0.zip HEAD
 
 # 校验
-Get-FileHash dist\dsh-guardian-1.0.3.zip -Algorithm SHA256
+Get-FileHash dist\dsh-guardian-1.1.0.zip -Algorithm SHA256
 ```
 
 ---

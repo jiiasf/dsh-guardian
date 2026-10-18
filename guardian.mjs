@@ -30,7 +30,7 @@ const OPTIONS = {
 };
 
 function printHelp() {
-  console.log(`DSH 守护者 (guardian) v1.0.3
+  console.log(`DSH 守护者 (guardian) v1.1.0
 
 用法:
   node guardian.mjs <命令> [参数]
@@ -133,6 +133,16 @@ function humanStatus(status, state) {
   } else {
     lines.push('插件试用 : 无');
   }
+  const auto = status?.autoSnapshot;
+  if (auto?.enabled) {
+    const next = auto.nextAt
+      ? new Date(auto.nextAt).toLocaleString('zh-CN', { hour12: false })
+      : '等待良好基线';
+    lines.push(`自动快照 : 每 ${auto.hours} 小时 · 下次 ${next} · 保留 ${auto.retention} 个`);
+    if (auto.lastError) lines.push(`快照异常 : ${auto.lastError}`);
+  } else {
+    lines.push('自动快照 : 已关闭');
+  }
   if (status?.attention?.message) lines.push(`需要处理 : ${status.attention.message}`);
   if (status?.lastEvent) lines.push(`最近事件 : ${status.lastEvent.message}`);
   lines.push(`守护日志 : ${status?.paths?.logPath ?? ''}`);
@@ -150,7 +160,7 @@ async function main() {
   }
   const { values, positionals } = parsed;
   if (values.version) {
-    console.log('1.0.3');
+    console.log('1.1.0');
     return;
   }
   if (values.help || positionals.length === 0) {
