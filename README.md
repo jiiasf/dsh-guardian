@@ -294,4 +294,4 @@ Get-FileHash dist\dsh-guardian-1.0.2.zip -Algorithm SHA256
 
 本项目从 **v1.0.2** 起采用 [Apache License 2.0](LICENSE)，Copyright 2026 jiiasf，署名信息见 [NOTICE](NOTICE)。
 
-历史版本 **v1.0.0 / v1.0.1** 仍按 MIT License 发布，不会被覆盖；需要旧许可证时请查看对应 tag 中的 `LICENSE`。
+历史版本 **v1.0.1** 仍按 MIT License 发布；**v1.0.0** 是更早的、包内未附许可证的版本。旧版本均不会被覆盖。
