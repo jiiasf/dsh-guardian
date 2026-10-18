@@ -1,10 +1,10 @@
 {
   "name": "dsh-guardian",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "type": "module",
   "license": "Apache-2.0",
-  "description": "External watchdog for DeepSeek Harness: profile snapshots, plugin probation, and automatic rollback when a plugin crashes DSH.",
+  "description": "External watchdog for DeepSeek Harness: profile snapshots, plugin probation, and automatic rollback when a plugin crashes DSH. Generated with DeepSeekV4.1flash; personal testing only.",
   "keywords": [
     "deepseek-harness",
     "dsh",

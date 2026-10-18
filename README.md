@@ -11,6 +11,8 @@
 
 仓库：[github.com/jiiasf/dsh-guardian](https://github.com/jiiasf/dsh-guardian)
 
+> **声明**：该项目为 **DeepSeekV4.1flash** 模型生成，该项目用于**个人测试用途**。详见 [DISCLAIMER.md](DISCLAIMER.md)。
+
 ---
 
 ## 仓库结构
@@ -282,10 +284,10 @@ node test\fake-rollback-test.mjs
 
 ```powershell
 # 生成只包含已提交文件的 zip（dist/ 已被 .gitignore 忽略）
-git archive --format=zip --output=dist\dsh-guardian-1.0.2.zip HEAD
+git archive --format=zip --output=dist\dsh-guardian-1.0.3.zip HEAD
 
 # 校验
-Get-FileHash dist\dsh-guardian-1.0.2.zip -Algorithm SHA256
+Get-FileHash dist\dsh-guardian-1.0.3.zip -Algorithm SHA256
 ```
 
 ---
