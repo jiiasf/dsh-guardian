@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 — 2026-10-18
+
+- 添加 MIT License。
+- `package.json` 增加 `license` 字段。
+
 ## 1.0.0 — 2026-10-18
 
 首个可用版本。

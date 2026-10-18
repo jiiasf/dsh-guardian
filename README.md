@@ -282,14 +282,14 @@ node test\fake-rollback-test.mjs
 
 ```powershell
 # 生成只包含已提交文件的 zip（dist/ 已被 .gitignore 忽略）
-git archive --format=zip --output=dist\dsh-guardian-1.0.0.zip HEAD
+git archive --format=zip --output=dist\dsh-guardian-1.0.1.zip HEAD
 
 # 校验
-Get-FileHash dist\dsh-guardian-1.0.0.zip -Algorithm SHA256
+Get-FileHash dist\dsh-guardian-1.0.1.zip -Algorithm SHA256
 ```
 
 ---
 
 ## 许可证
 
-当前仓库未附加开源许可证，默认保留所有权利。如果你准备公开分发，建议先选择并添加 `LICENSE`（例如 MIT、Apache-2.0），再在 GitHub 仓库信息中标注。
+本项目采用 [MIT License](LICENSE)，Copyright (c) 2026 jiiasf。你可以自由使用、修改、分发和商用，但需保留版权与许可声明。
