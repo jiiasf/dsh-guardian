@@ -9,6 +9,8 @@
 
 文档：[架构说明](docs/ARCHITECTURE.md) · [测试说明](docs/TESTING.md) · [安全说明](SECURITY.md) · [更新日志](CHANGELOG.md)
 
+仓库：[github.com/jiiasf/dsh-guardian](https://github.com/jiiasf/dsh-guardian)
+
 ---
 
 ## 仓库结构
@@ -70,7 +72,7 @@ config.example.json   配置模板（真正的 config.json 不入库）
 ### 从 GitHub 获取
 
 ```powershell
-git clone https://github.com/<你的用户名>/dsh-guardian.git
+git clone https://github.com/jiiasf/dsh-guardian.git
 cd dsh-guardian
 
 # 首次运行：生成本机 config.json（会把 nodeExe 指向当前 Node）
