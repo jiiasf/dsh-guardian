@@ -1,0 +1,26 @@
+{
+  "name": "dsh-guardian",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "External watchdog for DeepSeek Harness: profile snapshots, plugin probation, and automatic rollback when a plugin crashes DSH.",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "watchdog",
+    "plugin",
+    "rollback",
+    "windows"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node guardian.mjs start",
+    "stop": "node guardian.mjs stop",
+    "status": "node guardian.mjs status",
+    "doctor": "node guardian.mjs doctor",
+    "selftest": "node guardian.mjs selftest",
+    "e2e": "node test/fake-rollback-test.mjs"
+  }
+}

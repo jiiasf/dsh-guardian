@@ -1,0 +1,16 @@
+# 运行数据（每台机器不同，不入库）
+config.json
+node_modules/
+dist/
+*.log
+*.tmp
+
+# 测试生成物
+test/*.exe
+test/*.pdb
+
+# OS / 编辑器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
