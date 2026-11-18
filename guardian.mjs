@@ -30,7 +30,7 @@ const OPTIONS = {
 };
 
 function printHelp() {
-  console.log(`DSH 守护者 (guardian) v1.1.0
+  console.log(`DSH 守护者 (guardian) v1.2.0
 
 用法:
   node guardian.mjs <命令> [参数]
@@ -160,7 +160,7 @@ async function main() {
   }
   const { values, positionals } = parsed;
   if (values.version) {
-    console.log('1.1.0');
+    console.log('1.2.0');
     return;
   }
   if (values.help || positionals.length === 0) {
@@ -523,3 +523,4 @@ main().catch((error) => {
   console.error(`错误：${error instanceof Error ? error.message : String(error)}`);
   process.exitCode = 1;
 });
+

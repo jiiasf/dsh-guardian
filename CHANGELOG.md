@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 — 2026-11-18
+
+- 修复误判：进程查询看不到 Agent 宿主进程时（守护重启后、或 DSH 由资源管理器/管理员权限启动），改为先对已发现的端口做 HTTP 探测；能响应就判为 `healthy`，不再直接判 `degraded`。
+- 修复自动重启误杀：`service-degraded` 自动重启现在要求**探测实际失败**（排除 `Agent 宿主进程未运行` 这类记账失败）且 `consecutiveUnhealthy >= failureThreshold`，避免杀掉本来健康的会话。
+- 运行时与 CLI 版本号同步为 `1.2.0`；`User-Agent` 更新为 `dsh-guardian/1.2`。
+- 本机 `config.json` 已改为 `observeOnly: true`（只观察、不自动重启），作为额外保险。
+
 ## 1.1.0 — 2026-10-18
 
 - 新增**每 12 小时自动保存健康版本**：条件满足时创建新基线并重置倒计时。
