@@ -1,5 +1,7 @@
 # DSH 守护者（DSH Guardian）
 
+[![Release](https://img.shields.io/github/v/release/jiiasf/dsh-guardian)](https://github.com/jiiasf/dsh-guardian/releases/latest) [![License](https://img.shields.io/github/license/jiiasf/dsh-guardian)](LICENSE)
+
 一个**运行在 DSH 之外**的独立守护进程：它会记录 DSH 的最新良好状态；当你安装新插件后，如果插件在加载或运行中导致 DSH 崩溃、启动失败或服务无响应，它会自动**停止 DSH → 恢复安装前的插件配置 → 重启 DSH → 验证恢复**，并留下事件报告。
 
 > 为什么必须是“另一个进程”？
